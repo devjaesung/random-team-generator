@@ -1,3 +1,5 @@
+import { Select } from "./Select";
+
 interface TeamFormProps {
   teamCount: number;
   maxTeamSize: number;
@@ -17,6 +19,16 @@ export function TeamForm({
   onNamesInputChange,
   onGenerate,
 }: TeamFormProps) {
+  const teamCountOptions = Array.from({ length: 10 }, (_, i) => ({
+    value: i + 1,
+    label: `${i + 1}`,
+  }));
+
+  const maxTeamSizeOptions = Array.from({ length: 10 }, (_, i) => ({
+    value: i + 1,
+    label: `${i + 1}`,
+  }));
+
   return (
     <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-6">
       <div className="space-y-4 sm:space-y-6">
@@ -25,34 +37,22 @@ export function TeamForm({
             <label className="block text-sm font-medium text-gray-700 mb-2">
               팀 개수
             </label>
-            <select
+            <Select
               value={teamCount}
-              onChange={(e) => onTeamCountChange(Number(e.target.value))}
-              className="w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-            >
-              {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => (
-                <option key={num} value={num}>
-                  {num}
-                </option>
-              ))}
-            </select>
+              options={teamCountOptions}
+              onChange={onTeamCountChange}
+            />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               팀당 최대 인원 수
             </label>
-            <select
+            <Select
               value={maxTeamSize}
-              onChange={(e) => onMaxTeamSizeChange(Number(e.target.value))}
-              className="w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-            >
-              {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => (
-                <option key={num} value={num}>
-                  {num}
-                </option>
-              ))}
-            </select>
+              options={maxTeamSizeOptions}
+              onChange={onMaxTeamSizeChange}
+            />
           </div>
         </div>
 
