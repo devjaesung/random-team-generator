@@ -106,7 +106,7 @@ export function Select({
         type="button"
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
-        className="w-full px-3 py-2 text-left text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white flex items-center justify-between hover:border-gray-400 transition-colors"
+        className="cursor-pointer w-full px-3 py-2 text-left text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white flex items-center justify-between hover:border-gray-400 transition-colors"
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
@@ -147,9 +147,7 @@ export function Select({
                 option.value === value
                   ? "bg-blue-50 text-blue-600 font-medium"
                   : "text-gray-900 hover:bg-gray-50"
-              } ${
-                index === focusedIndex ? "bg-gray-100" : ""
-              }`}
+              } ${index === focusedIndex ? "bg-gray-100" : ""}`}
             >
               {option.label}
             </li>

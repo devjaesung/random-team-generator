@@ -58,7 +58,7 @@ export function TeamForm({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            참가자 이름 (엔터로 구분)
+            이름 입력 (엔터로 구분)
           </label>
           <textarea
             value={namesInput}
@@ -71,7 +71,7 @@ export function TeamForm({
 
         <button
           onClick={onGenerate}
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
+          className="cursor-pointer w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
         >
           팀 생성
         </button>
