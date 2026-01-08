@@ -3,12 +3,15 @@ import type { Team } from "./types/team";
 import { parseNames, createTeams } from "./utils/teamUtils";
 import { TeamForm } from "./components/TeamForm";
 import { TeamList } from "./components/TeamList";
+import { WarningModal } from "./components/WarningModal";
 
 function App() {
   const [teamCount, setTeamCount] = useState(4);
   const [maxTeamSize, setMaxTeamSize] = useState(4);
   const [namesInput, setNamesInput] = useState("");
   const [teams, setTeams] = useState<Team[]>([]);
+  const [showWarning, setShowWarning] = useState(false);
+  const [warningMessage, setWarningMessage] = useState("");
 
   const handleGenerate = () => {
     const names = parseNames(namesInput);
@@ -16,6 +19,16 @@ function App() {
       setTeams([]);
       return;
     }
+
+    const maxTotalMembers = teamCount * maxTeamSize;
+    if (names.length > maxTotalMembers) {
+      setWarningMessage(
+        `참여 인원(${names.length}명)이 선택한 팀 구성(${teamCount}팀 × ${maxTeamSize}명 = ${maxTotalMembers}명)보다 많습니다. 팀 개수나 팀당 최대 인원 수를 조정해주세요.`
+      );
+      setShowWarning(true);
+      return;
+    }
+
     const generatedTeams = createTeams(names, teamCount, maxTeamSize);
     setTeams(generatedTeams);
   };
@@ -38,6 +51,12 @@ function App() {
         />
 
         <TeamList teams={teams} />
+
+        <WarningModal
+          isOpen={showWarning}
+          message={warningMessage}
+          onClose={() => setShowWarning(false)}
+        />
       </div>
     </div>
   );
