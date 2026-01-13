@@ -18,8 +18,7 @@ export function shuffleNames(names: string[]): string[] {
 
 export function createTeams(
   names: string[],
-  teamCount: number,
-  maxTeamSize: number
+  teamCount: number
 ): Team[] {
   const teams: Team[] = Array.from({ length: teamCount }, (_, i) => ({
     id: i + 1,
@@ -27,11 +26,23 @@ export function createTeams(
   }));
 
   const shuffled = shuffleNames(names);
-  let nameIndex = 0;
+  const totalMembers = shuffled.length;
+  
+  // 기본 팀당 인원 수 계산
+  const baseSize = Math.floor(totalMembers / teamCount);
+  // 나머지 인원 수 계산
+  const remainder = totalMembers % teamCount;
+  
+  // 각 팀의 목표 인원 수 설정
+  const teamSizes: number[] = Array.from({ length: teamCount }, (_, i) => 
+    i < remainder ? baseSize + 1 : baseSize
+  );
 
+  let nameIndex = 0;
   for (let teamIndex = 0; teamIndex < teamCount; teamIndex++) {
+    const targetSize = teamSizes[teamIndex];
     while (
-      teams[teamIndex].members.length < maxTeamSize &&
+      teams[teamIndex].members.length < targetSize &&
       nameIndex < shuffled.length
     ) {
       teams[teamIndex].members.push(shuffled[nameIndex]);
